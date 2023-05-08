@@ -1,17 +1,18 @@
 const fs = require('fs');
 const path = require('node:path');
-const { Readable } = require('stream');
+const {
+  stdout,
+} = require('process');
 
-const rs = new Readable();
 const link = path.join('01-read-file', 'text.txt');
-const text = new fs.ReadStream(link);
+const text = new fs.ReadStream(link, {
+  encoding: 'utf8',
+});
 
 text.on('readable', () => {
   const data = text.read();
   if (data !== null) {
-    if (data !== null) {
-      rs.push(data.toString());
-    }
+    stdout.write(data);
   }
 });
 

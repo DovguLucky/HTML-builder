@@ -1,5 +1,8 @@
 const fs = require('fs');
 const path = require('node:path');
+const {
+  stdout,
+} = require('process');
 
 const link = path.join('03-files-in-folder', 'secret-folder');
 
@@ -17,7 +20,7 @@ fs.readdir(link, (err, files) => {
         const res = `${path.basename(file).split('.')[0]} - ${
           path.extname(file).split('').filter((el) => el !== '.').join('')} - ${
           stats.size / 1024}kb`;
-        console.log(res);
+        stdout.write(`${res}\n`);
         return null;
       }
       return null;
